@@ -1,0 +1,44 @@
+<?php foreach($this->atividades as $atividade):?>
+<div class="overlay">
+<div class="float_info" style="border:#CCC solid 1px; padding:10px;" id="info_atividade_<?php echo $atividade['id'] ?>">
+    <a href="#" class="close">X</a>
+    <div>
+        <div class="small_info">
+            <h2><?php echo $atividade['nome'] ?></h2>
+            Horário: <?php echo date('H:i', strtotime($atividade['hora_inicio'])).'hs' ?><br>
+            Sala: <?php echo $atividade['nome_sala'] ?>
+        </div>
+    </div>
+    
+    <div class="descricao_info">
+        <h4>Palestrante</h4>
+        <?php
+        // Gravatar
+        $email = $atividade['email_usuario'];
+        $default = 'http://flisol.phpapp.com.br/imgs/tux2.png';
+        $size = 70;
+        
+        $grav_url = 'http://www.gravatar.com/avatar/'.md5( strtolower( trim( $email ))) . '?d=' . urlencode($default) . '&s=' . $size;
+        
+        ?>
+      <img style="width:70px;" src="<?php echo $grav_url; ?>" alt=""><br>
+        <?php echo $atividade['nome_usuario'] ?>
+        
+    </div>
+    
+    <div class="descricao_info">
+        <h4>Descrição</h4>
+        <?php echo $atividade['descricao'] ?>
+    </div>
+  
+    <div class="descricao_info" align="right">
+      <input type="button" class="close" value="Cancelar"/>
+      <?php if ($this->idUsuario) { ?>
+      <input type="submit" style="cursor:pointer; background-color: #363;" value="Logado: Quero me inscrever" id="button_<?php echo $atividade['id']?>">
+      <?php } else { ?>
+      <input type="button" onclick="top.location.href='/participantes/login';" class="close" value="Não Logado: Fazer Login"/>
+      <?php } ?>
+    </div>
+</div>
+</div>
+<?php endforeach; ?>

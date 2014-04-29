@@ -1,0 +1,12 @@
+<br><br><br><br><br>
+<div style="width: 400px; margin: 0 auto;">
+<?php
+if ($this->participante) { ?>
+
+<h3>Este certificado pertece a:</h3><br><br>
+<?php echo '<h2>'.$this->participante['nome'].'</h2>'; ?>
+<?php } else { ?>
+	<h2>Este certificado não é válido!</h2>
+<?php } ?>
+</div>
+<br><br><br><br>

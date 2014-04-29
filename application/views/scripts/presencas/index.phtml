@@ -1,0 +1,28 @@
+<h2>Evento Flisol-DF 2014</h2>
+<br>
+<form name="formulario" id="cadastro" method="post" action="<?php echo $this->baseUrl(); ?>/presencas/pesquisa_participante">
+	<input type="hidden" name="evento_id" value="1">
+	<p>Email:<br />
+			<input type="text" id="email" name="email" style="width:210px;" />
+	</p>
+	<p><input type="submit" value="Pesquisar"></p>
+</form>
+<script type="text/javascript">
+$(function(){
+
+
+	$("#cep").mask("99999-999");
+	$("#cpf").mask("999.999.999-99");
+
+
+	$("#cadastro").validate({
+		ignoreTitle: true,
+		rules:{
+		    senha: "required",
+		    senha2:{
+		    	equalTo: "#senha"
+		    }
+		}
+	});
+});
+</script>

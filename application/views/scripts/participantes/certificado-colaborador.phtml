@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>FLISOL-DF 2014</title>
+</head>
+<style>
+body{
+    padding:0px;
+    margin:0px;
+}
+div#certificado{
+    margin:0 auto;
+    border:#FF0000 solid 0px;
+    text-align:center;
+}
+div#certificado img{
+    border:#00F solid 0px;
+}
+#texto{
+    position:absolute;
+    top:350px;
+    left:50%;
+    width:900px;
+    margin-left:-450px;
+    font-size:28px;
+    text-align:center;
+    border:#900 solid 0px;
+}
+</style>
+<body>
+
+<div id="texto">
+    Certificamos que <strong><?php echo $this->participante->nome; ?></strong><br />
+    <b>trabalhou como colaborador na organização do<br/>
+    <b>Festival Latino Americano de Instalação de Software Livre<br/>
+    ( FLISOL 2014 )</b>,<br />
+    realizado no Distrito Federal (DF).<br />
+    Carga horária de 30 horas.
+</div>
+
+<div id="certificado">
+<img src="<?php echo $this->baseUrl(); ?>/imgs//bg_certificado.jpg" width="1080" height="784 /">
+</div>
+
+</body>
+</html>

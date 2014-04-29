@@ -1,0 +1,18 @@
+	<table border="0" align="center" width="95%" cellspacing="2" cellpadding="5">
+	<tr>
+		<th align="left">Nome</th>
+		<th align="center">Início</th>
+		<th>Sala</th>
+	</tr>
+	<?php 
+	$cor = true;
+	$atividadesSubmetidas = $this->atividades;
+	$vagasOcupadas        = $this->vagasOcupadas;
+	foreach($atividadesSubmetidas as $atividade) { ?>
+	    <tr>
+			<td width="70%" ><?php echo $atividade->nome ?></td>
+			<td width="15%" align="center"><?php echo date('H:i', strtotime($atividade->hora_inicio)); ?></td>
+			<td><?php echo $atividade['nome_sala']; ?></td>
+		</tr>
+	<?php } ?>
+</table>

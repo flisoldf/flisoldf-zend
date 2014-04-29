@@ -1,0 +1,51 @@
+<!--
+Autor: Daniel Maffioletti
+Email: dmaffioletti@gmail.com
+Fone: (61)9151-4622
+ -->
+<div class="w50" style="padding:30px;">
+<p>
+	<strong>Festival Latino Americano de Instalação de Software Livre</strong>
+</p>
+
+<p>
+	Por favor, informe o seu usuário/email e sua senha para acessar o sistema de inscrição do FLISOL.<br />
+	<h2>Se você ainda não te acesso <a href="<?php echo $this->baseUrl(); ?>/participantes/cadastrar">cadastre-se aqui</a></h2>
+</p>
+<p>
+	Esqueceu o seu usuário ou a senha de acesso? Clique <a href="<?php echo $this->baseUrl(); ?>/participantes/recuperar-senha">recuperar minha senha.</a>
+</p>
+<p>
+    <b>Indique as atividades que deseja participar. A garantia de vaga é feita pela ordem de chegada na sala da atividade. Quem está na listagem de inscritos na atividades tem prioridade. Mesmo que você não tenha feito a inscrição, se sobrar vagas na sala você poderá participar.</b><br /><br />
+    A certificação do evento é feita a partir da confirmação de sua presença na chegada ao evento. Depois de 3 horas no evento você deverá, <br />
+    confirmar sua presença novemente para liberação (download) do seu certificado no sistema de inscrição do FLISOL-DF (Atenção: O certicado não é enviado por e-mail!). <br /><br />
+
+    Qualquer dúvida ou sugestão entre em contato com a organização pelo e-mail: <a href="mailto:organizacao@flisoldf.blog.br">
+    organizacao@flisoldf.blog.br</a>.<br />
+
+    Atenciosamente, <br /><br />
+
+    Coordenação Geral do FLISOL-DF.
+</p>
+</div>
+
+<div class="w30">
+	<form name="form1" method="post" action="<?php echo $this->baseUrl(); ?>/participantes/login">
+		<fieldset><legend>Login</legend>
+			<h2>Autenticação</h2>
+			<p>E-mail:<br />
+			<input type="text" name="email" class="email" /></p>
+			<p>Senha:<br />
+			<input type="password" name="senha" /></p>
+			<p><input type="submit" value="ACESSAR" /></p>
+		</fieldset>
+	</form>
+</div>
+<script type="text/javascript">
+$(function(){
+	//validação
+	$("form").validate({
+		ignoreTitle: true
+	});
+});
+</script>

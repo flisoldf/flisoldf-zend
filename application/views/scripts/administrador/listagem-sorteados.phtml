@@ -1,0 +1,27 @@
+<div id="menu_area">
+	<ul id="menu">
+		<li><a href="<?php echo $this->baseUrl();?>/administrador/listagem/tipo/participante">Participantes</a></li>
+		<li><a href="<?php echo $this->baseUrl();?>/administrador/listagem/tipo/palestrante">Palestrantes</a></li>
+		<li><a href="<?php echo $this->baseUrl();?>/salas">Salas</a></li>
+		<li><a href="<?php echo $this->baseUrl();?>/administrador/listagem/tipo/sorteio">Sorteio</a></li>
+		<li><a href="<?php echo $this->baseUrl();?>/administrador/listagem/tipo/sorteados">Lista Sorteados</a></li>
+	</ul>
+	
+</div>
+
+<table width="100%">
+<tr>
+	<th>Nome</th>
+	<th>Email</th>
+	<th>Prëmio</th>
+</tr>
+
+<?php foreach ($this->usuarios as $row) { ?>
+<tr>
+	<td width="40%" align="center"><?php echo ucwords( strtolower( trim( $row->nome ) ) ); ?></td>
+	<td width="30%" align="center"><?php echo strtolower( $row->email ); ?></td>
+	<td align="center"><?php echo $row->premio; ?></td>
+</tr>
+<?php } ?>
+</table>
+

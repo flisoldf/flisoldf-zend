@@ -1,0 +1,66 @@
+<div id="menu_area">
+	<ul id="menu">
+		<li><a href="<?php echo $this->baseUrl();?>/administrador/listagem/tipo/participante">Participantes</a></li>
+		<li><a href="<?php echo $this->baseUrl();?>/administrador/listagem/tipo/palestrante">Palestrantes</a></li>
+		<li><a href="<?php echo $this->baseUrl();?>/salas">Salas</a></li>
+		<li><a href="<?php echo $this->baseUrl();?>/administrador/listagem/tipo/sorteio">Sorteio</a></li>
+		<li><a href="<?php echo $this->baseUrl();?>/administrador/listagem/tipo/sorteados">Lista Sorteados</a></li>
+	</ul>
+
+</div>
+
+<?php if(isset($this->n_sorteado)) { ?>
+	<table width="100%">
+<tr>
+	<th>Nome</th>
+	<th>Email</th>
+</tr>
+<tr style="font-size:24px;">
+	<td width="40%" align="center"><?php echo ucwords( strtolower( trim( $this->usuarios['nome'] ) ) ); ?></td>
+	<td width="30%" align="center"><?php echo strtolower( $this->usuarios['email'] ); ?></td>
+</tr>
+<tr>
+	<th>CPF</th>
+	<th>Cidade</th>
+</tr>
+<tr style="font-size:24px;">
+	<td align="center"><?php echo $this->usuarios['cpf']; ?></td>
+	<td align="center"><?php echo $this->usuarios['cidade']; ?></td>
+</tr>
+</table>
+<a style="font-size: 24px;" href="/administrador/listagem/tipo/sorteio">Novo Sorteio</a>
+
+<?php } else { ?>
+
+<table width="100%">
+<tr>
+	<th>&nbsp;</th>
+	<th>Nome</th>
+	<th>Email</th>
+	<th>CPF</th>
+	<th>Cidade</th>
+</tr>
+<form method="post">
+<?php foreach ($this->usuarios as $row) { ?>
+<tr>
+	<td><input type="radio" name="num_sorteado" value="<?php echo $row->usuario_id;?>"></td>
+	<td width="40%" align="center"><?php echo ucwords( strtolower( trim( $row->nome ) ) ); ?></td>
+	<td width="30%" align="center"><?php echo strtolower( $row->email ); ?></td>
+	<td align="center"><?php echo $row->cpf; ?></td>
+	<td align="center"><?php echo $row->cidade; ?></td>
+</tr>
+<?php } ?>
+<tr>
+	<td colspan="5">
+		Descrição do Prêmio:<br>
+		<input  type="text" name="premio" size="40" style="width: 200px;">
+	</td>
+</tr>
+<tr>
+	<td colspan="5">
+		<input type="submit" value="Gravar Sorteado">
+	</td>
+</tr>
+</form>
+</table>
+<?php } ?>

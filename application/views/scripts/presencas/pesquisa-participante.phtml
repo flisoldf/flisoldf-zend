@@ -1,0 +1,49 @@
+<h1>Presença - Flisol-DF 2014</h1>
+<hr>
+<?php if ($this->qualpresenca == 1) { ?>
+<h3>Confirma a chegada do Participante abaixo ao Flisol DF de 2014 ?</h3>
+<?php } else { ?>
+<h3>Confirma a segunda presença do Participante abaixo ao Flisol DF de 2014 ?</h3>
+<?php } ?>
+
+<form name="formulario" id="cadastro" method="post" action="<?php echo $this->baseUrl(); ?>/presencas/grava_presenca">
+	<input type="hidden" name="id" value="<?php echo $this->presenca['id']; ?>">
+	<input type="hidden" name="evento_id" value="1">
+	<input type="hidden" name="qualpresenca" value="<?php echo $this->qualpresenca;?>">
+	<input type="hidden" name="usuario_id" value="<?php echo $this->participante->id;?>">
+	<strong>
+	<p>Nome: <?php echo $this->participante->nome; ?></p>
+	<p>Email: <?php echo $this->participante->email; ?></p>
+	<p>CPF: <?php echo $this->participante->cpf; ?></p>
+	<p>Hora: <?php echo date('d/m/Y H:i') ?></p>
+	</strong>
+	<hr>
+	<?php if ($this->qualpresenca == 2) { ?>
+	<h3>Chegada gravada em:</h3>
+	<br>
+	<h1>
+	<?php 
+	echo date('d/m/Y H:i:s', strtotime($this->presenca['data_primeira_presenca'])); ?>
+	</h1>
+	<br><br>
+	<h3>Tempo no evento:</h3>
+	<br>
+	<?php
+	$date_ini = strtotime($this->presenca['data_primeira_presenca']);
+	$date_to = time();
+	$secs = ($date_to - $date_ini);
+	$hours = intval($secs / 60 / 60);
+	$mins = intval($secs / 60) - ($hours*60); ?>
+	<h1>
+	<?php
+	echo $hours.' hora(s) e '.$mins.' minuto(s)';
+	?>
+	</h1>
+	<?php } ?>
+	<?php if ($hours > 2 or $this->qualpresenca == 1) { ?>
+	<p><input type="submit" value="Confirmar"></p>
+	<?php } else { ?>
+	<br><br>
+	<h3>Ainda não se passaram 3 horas de presença!</h3>
+	<?php } ?>
+</form>

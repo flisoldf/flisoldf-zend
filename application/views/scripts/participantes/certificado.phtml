@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>FLISOL-DF 2014</title>
+</head>
+<style>
+body{
+    padding:0px;
+    margin:0px;
+}
+div#certificado{
+    margin:0 auto;
+    border:#FF0000 solid 0px;
+    text-align:center;
+}
+div#certificado img{
+    border:#00F solid 0px;
+}
+#texto{
+	position:absolute;
+    top:205px;
+    left:50%;
+    width:900px;
+    margin-left:-450px;
+    font-size:24px;
+    text-align:center;
+    border:#900 solid 0px;
+}
+#texto .atividades {
+font-size: 20px;
+}
+</style>
+<body>
+<?php
+				$code =$this->usuario['id'];
+				$cc = $code;
+				$key = 'livre2013';
+				$iv = '92832345';
+
+				$cipher = mcrypt_module_open(MCRYPT_BLOWFISH,'','cbc','');
+				mcrypt_generic_init($cipher, $key, $iv);
+				$encrypted = mcrypt_generic($cipher,$cc);
+				mcrypt_generic_deinit($cipher);
+
+				$enc_code = base64_encode ( $encrypted );
+				?>
+				
+<div id="texto">
+	<img width="100" height="100" src="/loadqr_cert.php?code=<?=$enc_code;?>"><br>
+    <?php 
+    	if ($this->tipo == 'participante') {
+	    	echo $this->textoParticipante;
+	    }
+	    if ($this->tipo == 'palestrante') {
+	    	echo $this->textoPalestrante;
+	    }
+	    if ($this->tipo == 'colaborador') {   
+	    	echo $this->textoColaborador;
+	    }
+	    if ($this->tipo == 'palestrante') { ?>
+	    	<div class="atividades">
+    		<?php foreach ($this->palestrante as $palestra) { ?>
+    		<?php echo '<br>'.$palestra['nome'];?>
+    		<?php } ?>
+    		</div>
+	    <?php } ?>
+</div>
+
+<div id="certificado">
+<?php if ($this->tipo == 'colaborador') { ?>
+<img src="<?php echo $this->baseUrl(); ?>/imgs/certificado2014_organizacao_net.png" width="1174" height="882">
+<?php } else { ?>
+<img src="<?php echo $this->baseUrl(); ?>/imgs/certificado2014_participante_net.png" width="1174" height="882">
+<?php } ?>
+</div>
+
+</body>
+</html>

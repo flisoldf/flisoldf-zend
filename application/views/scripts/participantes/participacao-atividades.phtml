@@ -1,0 +1,15 @@
+<div>
+<h2 style="padding-left:25px">Certificados FLISOL-DF 2014</h2>
+<br><br>
+<?php if (count($this->presenca) > 0) { ?>
+	<a href="/participantes/certificado/tipo/participante">Certificado Participante</a><br><br>
+<?php } else { ?>
+<b>Você não participou do Evento.</b>
+<?php } ?>
+<?php if (count($this->palestrante) > 0) { ?>
+	<a href="/participantes/certificado/tipo/palestrante">Certificado Palestrante</a><br><br>
+<?php } ?>
+<?php if ($this->colaborador == Usuario::COLABORADOR) { ?>
+	<a href="/participantes/certificado/tipo/colaborador">Certificado Colaborador</a><br>
+<?php } ?>
+</div>

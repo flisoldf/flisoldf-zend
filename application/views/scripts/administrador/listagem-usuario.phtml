@@ -1,0 +1,100 @@
+<ul id="menu">
+    <li><a href="javascript:history.back();">Voltar</a></li>
+</ul>
+<hr />
+<br />
+<?php 
+
+$unwanted_array = array('À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 
+	'Ç'=>'C', 
+	'È'=>'E', 'É'=>'E','Ê'=>'E', 'Ë'=>'E', 
+	'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I',
+	'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 
+	'Ù'=>'U','Ú'=>'U', 'Û'=>'U', 'Ü'=>'U'
+	);
+$letras = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');
+
+function _findPresenca($arrs, $k, $v){
+	foreach($arrs as $arr) {
+		if ($arr[$k] == $v) return($arr);
+	}
+	return false;
+}
+?>
+
+<form action="<?php echo $this->baseUrl(); ?>/administrador/gravar-colaborador" method="post">
+	<input type="hidden" name="letra_list" value="<?php echo $this->letra_list;?>">
+<input type="submit" value="Gravar" style="position: fixed; margin-left: -50px;">
+<div style="margin-left:60px;">
+<?php 
+$letra_ini = '';
+foreach ($letras as $letra) {
+?>
+<span><a style="padding:5px; display: inline-block; font-weight: bold; font-size: 15px;" href="/administrador/listagem/tipo/participante/letra/<?php echo $letra;?>"><?php echo $letra;?></a></span>
+<?php } ?>
+</div>
+    <table border="0" align="center" width="95%" cellspacing="2" cellpadding="5">
+        <tr>
+        	<?php if(Zend_Auth::getInstance()->getIdentity()->sRole == 'admin') { ?>
+		    <th style="width: 20px;" title="Editar">E</th>
+            <th style="width: 20px;" align="left" title="Colaborador">C</th>
+            <th style="width: 20px;" align="left" title="Administrador">A</th>
+            <th style="width: 40px;" align="left" title="Presenças">P</th>
+	    	<?php } ?>
+            <th align="left">Nome</th>
+            <th style="width: 120px;" align="left">Email</th>
+        </tr>
+        <?php
+        $i = 0;
+        $usuarios = $this->usuarios;
+        $presencas = $this->presencas;
+        $letra_ini = '';
+		foreach ($usuarios as $row) {
+            $presenca = _findPresenca($presencas, 'usuario_id', $row['id']);
+            
+            if ($i++ % 2) {
+                $trCor = "#F4F4F4";
+            } else {
+                $trCor = '#DFDFDF';
+            }
+            if ($row->colaborador == Usuario::COLABORADOR) {
+                $checked_c = ' checked="checked" ';
+            } else {
+                $checked_c = '';
+            }
+            if ($row->perfil_id == 1) {
+            	$checked_a = ' checked="checked" ';
+            } else { $checked_a = ''; 
+            }
+            if (isset($presenca['data_primeira_presenca'])) {
+	            $checked_p1 = ' checked="checked" title="'.date('H:i:s', strtotime($presenca['data_primeira_presenca'])).'"';
+	        } else $checked_p1 = '';
+
+            if (isset($presenca['data_segunda_presenca'])) {
+	            $checked_p2 = ' checked="checked" title="'.date('H:i:s', strtotime($presenca['data_segunda_presenca'])).'"';
+	        } else $checked_p2 = '';
+            ?>
+			<input type="hidden" name="todos_lista[]" value="<?php echo $row->id; ?>">
+            <tr style="background-color:<?php echo $trCor;?>">
+               	<?php if(Zend_Auth::getInstance()->getIdentity()->sRole == 'admin') { ?>
+			    <td title="Editar"><a href="<?php echo $baseUrl; ?>/administrador/editar-participante/id/<?php echo $row->id;?>"><img alt="Editar" title="Editar" src="/imgs/icones/editar.png" border="0px"></d></th>
+	    		<?php } ?>
+	    		<?php if(Zend_Auth::getInstance()->getIdentity()->sRole == 'admin') { ?>
+                <td align="left" title="Colaborador">
+	                <input type="checkbox" name="colaborador[]" value="<?php echo $row->id; ?>" <?php echo $checked_c;?>>
+                </td>
+                <td align="left" title="Administrador">
+	                <input type="checkbox" name="admin[]" value="<?php echo $row->id; ?>" <?php echo $checked_a;?>>
+                </td>
+                <td align="left">
+	                <input type="checkbox" name="presenca1[]" value="<?php echo $row->id; ?>" <?php echo $checked_p1;?>>
+    	            <input type="checkbox" name="presenca2[]" value="<?php echo $row->id; ?>" <?php echo $checked_p2;?>>
+                </td>
+		    	<?php } ?>
+                <td align="left">
+                <?php echo ucwords( strtolower( trim( $row->nome ) ) ); ?></td>
+                <td align="left"><?php echo strtolower( $row->email ); ?></td>
+            </tr>
+        <?php } ?>
+    </table>
+</form>

@@ -1,0 +1,94 @@
+<ul id="menu">
+	<li>
+		<a href="javascript:history.back();">Voltar</a>
+	</li>
+	<hr />
+</ul>
+<div style="padding-left:20px;">
+<br />
+<h2>Submeta sua atividade</h2>
+	<form name="formulario" method="post" action="<?php echo $this->baseUrl(); ?>/atividades/gravar">
+		<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
+		<fieldset><legend>Atividade</legend>
+			<p>Responsável: <span><strong><?php echo $this->nomeUsuario; ?></strong></span>
+			</p>
+			<p>Nome da atividade: *<br />
+				<input type="text" class="required" name="nome" value="<?php echo $this->row->nome; ?>" />
+			</p>
+
+			<p>Descrição da atividade: *<br />
+				<textarea class="required" name="descricao" rows="5" cols="50" ><?php echo $this->row->descricao; ?></textarea>
+			</p>
+
+			<p>Documento Online: <br />
+			<p>
+				Disponibilize um link na internet com informações sobre o seu Projeto de Atividade. Uma forma de fazer isso é acessar
+				<a target="_blank" href="http://drive.google.com">http://drive.google.com</a> com uma conta do Gmail e criar um
+				Documento para a sua Atividade. Altere o Compartilhamento para acesso público e copie o link disponível na caixa
+				abaixo.
+			</p>
+				<input type="text"  name="link_gdocs_proposta" value="<?php echo $this->row->link_gdocs_proposta; ?>" />
+			</p>
+
+			<p>Quantidade de horas: *<br />
+				<?php /*<input type="text" id="qt_horas" class="required" name="qt_horas" size="6" value="<?php echo $this->row->qt_horas; ?>" style="width:40px;" />*/ ?>
+				<select name="qt_horas" id="qt_horas" class="required">
+					<?php foreach(array(
+						'01:00'=>'1 hora',
+						'02:00'=>'2 horas',
+						'03:00'=>'3 horas',
+						'04:00'=>'4 horas',
+						'08:00'=>'8 horas'
+					) as $key=>$value) { ?>
+					<option <?php echo ($key==date('H:i', strtotime($this->row->qt_horas)))?('selected'):('');?> value="<?=$key;?>"><?=$value;?></option>
+					<?php } ?>
+				</select>
+			</p>
+			<p>Turno: *<br />
+			<select name="fk_atividade_periodo" id="fk_atividade_periodo" class="required">
+					<?php foreach(array(
+						'1'=>'Manhã',
+						'2'=>'Tarde'
+					) as $key=>$value) { ?>
+					<option <?php echo ($this->row->fk_atividade_periodo)?('selected'):('');?> value="<?=$key;?>"><?=$value;?></option>
+					<?php } ?>
+				</select>
+			</p>
+			<p>Tipo de atividade: *<br />
+				<?php /*<input type="text" id="qt_horas" class="required" name="qt_horas" size="6" value="<?php echo $this->row->qt_horas; ?>" style="width:40px;" />*/ ?>
+				<select name="tipo_atividade" id="tipo_atividade" class="required">
+					<?php foreach(array(
+						'1'=>'Palestra',
+						'2'=>'Oficina'
+					) as $key=>$value) { ?>
+					<option <?php echo ($key==$this->row->tipo_atividade)?('selected'):('');?> value="<?=$key;?>"><?=$value;?></option>
+					<?php } ?>
+				</select>
+			</p>
+<?php if(Zend_Auth::getInstance()->getIdentity()->sRole == 'admin') { ?>
+			<p>Hora início: *<br />
+				<input type="text" id="hora_inicio" class="required" name="hora_inicio" size="5" value="<?php echo date('H:i', strtotime($this->row->hora_inicio)); ?>" style="width:40px;" />
+			</p>
+			<p>Sala: *<br />
+				<?php echo $this->formSelect('id_sala', $this->row->id_sala, array('class' => 'required'), $this->salas); ?>
+			</p>
+			<p>Situação: *<br />
+				<?php echo $this->formSelect('situacao', $this->row->situacao, array('class' => 'required'), $this->situacao); ?>
+			</p>
+<?php } ?>
+			<p><input type="submit" value="Submeter" /></p>
+		</fieldset>
+	</form>
+</div>
+<script type="text/javascript">
+$(function(){
+
+	//mascara
+	$("#qt_horas").mask("99:99");
+
+	//validação
+	$("form").validate({
+		ignoreTitle: true,
+	});
+});
+</script>

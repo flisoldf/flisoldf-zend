@@ -1,0 +1,83 @@
+<div id="menu_area">
+	<ul id="menu">
+		<li><a href="<?php echo $this->baseUrl();?>/administrador/listagem/tipo/participante">Participantes</a></li>
+		<li><a href="<?php echo $this->baseUrl();?>/administrador/listagem/tipo/palestrante">Palestrantes</a></li>
+		<li><a href="<?php echo $this->baseUrl();?>/salas">Salas</a></li>
+	</ul>
+	
+	<div id="total">
+		Total de usuários cadastrados: <b><?php echo $this->qtUsuarios; ?></b>
+	</div>
+	<div id="total">
+		Total de inscrições realizadas: <b><?php echo $this->qtInscricoes; ?></b>
+	</div>
+
+</div>
+
+
+
+<form style="width: 50%;" name="formulario" id="cadastro" method="post" action="<?php echo $this->baseUrl(); ?>/administrador/editar-participante">
+	<input type="hidden" name="id" value="<?php echo $this->usuario['id'];?>">
+		<fieldset><legend>Login</legend>
+		
+			<p>Foto:<br />
+				<?php
+        		// Gravatar
+        		$email = $atividade['email_usuario'];
+        		$default = 'http://flisol.phpapp.com.br/imgs/tux2.png';
+        		$size = 70;
+                $grav_url = 'http://www.gravatar.com/avatar/'.md5( strtolower( trim( $this->usuario['email'] ))) . '?d=' . urlencode($default) . '&s=' . $size;
+     			?>
+      			<img style="width:70px;" src="<?php echo $grav_url; ?>" alt=""><br>
+      			Para ter sua foto no cadastro do Flisol, inclua suas fotos no <a href="http://pt.gravatar.com/" target="_blank">Gravatar</a> ! Use o mesmo email cadastrado no sistema Flisol.
+			</p>
+
+			<p>CPF:<br />
+				<input value="<?php echo $this->usuario['cpf'];?>" type="text" id="cpf" name="cpf" style="width:110px;" />
+			</p>		
+		
+			<p>Nome: *<br />
+				<input value="<?php echo $this->usuario['nome'];?>" type="text" class="required" name="nome" />
+			</p>
+			
+			<p>E-mail: *<br />
+				<input value="<?php echo $this->usuario['email'];?>" type="text" class="required email" name="email" />
+			</p>
+			
+			<p>Cidade:<br />
+				<input value="<?php echo $this->usuario['cidade'];?>" type="text" name="cidade" />
+			</p>
+
+			<p>UF:<br />
+			<?php echo $this->formSelect('uf_id', $this->usuario['uf_id'], null, $this->ufs); ?>
+			</p>
+						
+			<p>CEP:<br />
+				<input value="<?php echo $this->usuario['cep'];?>" type="text" id="cep" name="cep" style="width:80px;" />
+			</p>
+			
+			<p>Perfil:<br />
+			<?php echo $this->formSelect('perfil_id', $this->usuario['perfil_id'], null, $this->perfis); ?>
+			</p>
+
+
+			<p>Site/Blog:<br />
+				<input value="<?php echo $this->usuario['site'];?>" type="text" name="site" value="http://" />
+			</p>
+			
+			<p>Mini-currículo: *<br />
+				<textarea class="required" name="curriculo" rows="5" cols="50" ><?php echo $this->row->curriculo; ?></textarea>
+			</p>
+
+			<p>Facebook:<br />
+				<input value="<?php echo $this->usuario['facebook'];?>" type="text" name="facebook" value="" />
+			</p>
+			
+			<p>Twitter:<br />
+				<input value="<?php echo $this->usuario['twitter'];?>" type="text" name="twitter" value="" />
+			</p>
+			
+			<p><input type="submit" value="Gravar" /></p>
+			
+		</fieldset>
+	</form>

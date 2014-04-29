@@ -1,0 +1,57 @@
+<div>
+			<h2>Imprima ou tire uma foto deste QRCode para utiliza-lo durante o evento para confirmar a sua presença.</h2>
+			<p>Foto:<br />
+				<?php
+        		// Gravatar
+        		$default = 'http://flisol.phpapp.com.br/imgs/tux2.png';
+        		$size = 140;
+                $grav_url = 'http://www.gravatar.com/avatar/'.md5( strtolower( trim( $this->usuario['email'] ))) . '?d=' . urlencode($default) . '&s=' . $size;
+     			?>
+      			<a href="http://pt.gravatar.com/" target="_blank"><img style="width:140px; height:140px; border-radius: 6px; border: 2px solid #f60; margin: 4px;" src="<?php echo $grav_url; ?>" alt=""></a><br>
+			</p>
+			<p>QRCode<br />
+				<?php
+				$code =$this->usuario['id'];
+				$cc = $code;
+				$key = 'livre2013';
+				$iv = '92832345';
+
+				$cipher = mcrypt_module_open(MCRYPT_BLOWFISH,'','cbc','');
+
+				mcrypt_generic_init($cipher, $key, $iv);
+				$encrypted = mcrypt_generic($cipher,$cc);
+				mcrypt_generic_deinit($cipher);
+
+				/*
+mcrypt_generic_init($cipher, $key, $iv);
+$decrypted = mdecrypt_generic($cipher,$encrypted);
+mcrypt_generic_deinit($cipher);
+
+echo "encrypted : ".$encrypted;
+echo "<br>";
+echo "decrypted : ".$decrypted;
+				 *
+				 */
+				$enc_code = base64_encode ( $encrypted );
+				?>
+				<img width="300" height="300" src="/loadqr.php?code=<?=$enc_code;?>"><br>
+			</p>
+
+			<p>CPF:<br />
+				<?php echo $this->usuario['cpf'];?>
+			</p>
+
+			<p>Nome: *<br />
+				<?php echo $this->usuario['nome'];?>
+			</p>
+
+			<p>E-mail: *<br />
+				<?php echo $this->usuario['email'];?>
+			</p>
+			<div style="padding-top:30px;">
+				<h2 style="padding-left:25px">Atividades Inscritas</h2>
+				<?php echo $this->partial( 'atividades/partial-listagem-acesso.phtml', array( 'atividades' => $this->atividadesInscrito, 'listagemAtividadesInscritas'	=>	true)); ?>
+			</div>	
+
+		
+</div>
