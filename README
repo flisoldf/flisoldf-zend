@@ -7,3 +7,6 @@ taguatinga e cada um aponta para um arquivo de configuração específico dentro
 de application/configs. Assim cada sede tem suas próprias configurações, banco 
 de dados e seus próprios arquivos CSS, JS e imagens.
 
+Licença
+-------
+BSD- (3 Clause) License - ver aquivo LICENSE
